@@ -721,11 +721,6 @@ tf_cc_test(
 )
 
 alias(
-    name = "cuda_platform",
-    actual = "//tensorflow/stream_executor/cuda:all_runtime",
-)
-
-alias(
     name = "rocm_platform",
     actual = "//tensorflow/stream_executor/rocm:all_runtime",
 )

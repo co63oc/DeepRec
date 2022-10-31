@@ -8,7 +8,7 @@ licenses(["notice"])  # Apache 2.0
 exports_files(["LICENSE"])
 
 load("//tensorflow:tensorflow.bzl", "check_deps")
-load("@local_config_cuda//cuda:build_defs.bzl", "if_cuda")
+# load("@local_config_cuda//cuda:build_defs.bzl", "if_cuda")
 load("@local_config_rocm//rocm:build_defs.bzl", "if_rocm")
 load("//tensorflow:tensorflow.bzl", "tf_copts")
 load("//tensorflow:tensorflow.bzl", "tf_cuda_library")
@@ -35,7 +35,6 @@ cc_library(
 tf_cuda_library(
     name = "stream_executor",
     cuda_deps = [
-        "//tensorflow/stream_executor/cuda:cuda_activation",
         "//tensorflow/stream_executor/rocm:rocm_activation",
     ],
     deps = [
@@ -44,16 +43,13 @@ tf_cuda_library(
         "//tensorflow/stream_executor:event",
         "//tensorflow/stream_executor:multi_platform_manager",
         "//tensorflow/stream_executor:scratch_allocator",
-        "//tensorflow/stream_executor/cuda:cuda_platform_id",
         "//tensorflow/stream_executor/host:host_platform_id",
         "//tensorflow/stream_executor/platform:dso_loader",
         "//tensorflow/stream_executor/rocm:rocm_platform_id",
     ] + select({
-        "@local_config_cuda//cuda:darwin": ["IOKit"],
+        #"@local_config_cuda//cuda:darwin": ["IOKit"],
         "//conditions:default": [],
     }) + select({
-        "//tensorflow:using_cuda_clang": ["//tensorflow/stream_executor/cuda:all_runtime"],
-        "//tensorflow:using_cuda_nvcc": ["//tensorflow/stream_executor/cuda:all_runtime"],
         "//tensorflow:using_cuda_clang_with_dynamic_build": [],
         "//tensorflow:using_cuda_nvcc_with_dynamic_build": [],
         "//tensorflow:using_rocm_hipcc": ["//tensorflow/stream_executor/rocm:all_runtime"],
@@ -66,13 +62,7 @@ cc_library(
     deps = [
         ":stream_executor_no_cuda",
     ] + select({
-        "//tensorflow:oss": ["//tensorflow/stream_executor/cuda:cudart_stub"],
-        "//conditions:default": [
-            "//tensorflow/stream_executor/cuda:all_runtime",
-            ":cuda",
-        ],
-    }) + select({
-        "@local_config_cuda//cuda:darwin": ["IOKit"],
+        #"@local_config_cuda//cuda:darwin": ["IOKit"],
         "//conditions:default": [],
     }),
 )
@@ -97,7 +87,6 @@ cc_library(
         "//tensorflow/stream_executor:event",
         "//tensorflow/stream_executor:multi_platform_manager",
         "//tensorflow/stream_executor:scratch_allocator",
-        "//tensorflow/stream_executor/cuda:cuda_platform_id",
         "//tensorflow/stream_executor/host:host_platform",
         "//tensorflow/stream_executor/host:host_platform_id",
         "//tensorflow/stream_executor/platform:dso_loader",

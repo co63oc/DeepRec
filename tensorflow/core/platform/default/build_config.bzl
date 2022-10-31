@@ -792,11 +792,7 @@ def tf_pyclif_proto_library(
     pass
 
 def tf_additional_binary_deps():
-    return ["@nsync//:nsync_cpp"] + if_cuda(
-        [
-            "//tensorflow/stream_executor:cuda_platform",
-        ],
-    ) + if_rocm(
+    return ["@nsync//:nsync_cpp"] + if_rocm(
         [
             "//tensorflow/stream_executor:rocm_platform",
             "//tensorflow/core/platform/default/build_config:rocm",

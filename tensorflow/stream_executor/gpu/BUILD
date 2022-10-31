@@ -5,10 +5,6 @@ load(
     "//tensorflow/stream_executor:build_defs.bzl",
     "if_gpu_is_configured",
 )
-load(
-    "//tensorflow/core/platform:default/cuda_build_defs.bzl",
-    "if_cuda_is_configured",
-)
 load("@local_config_rocm//rocm:build_defs.bzl", "if_rocm_is_configured")
 
 package(
@@ -188,9 +184,7 @@ cc_library(
     hdrs = if_gpu_is_configured(["gpu_types.h"]),
     deps = [
         "//tensorflow/stream_executor/platform",
-    ] + if_cuda_is_configured([
-        "@local_config_cuda//cuda:cuda_headers",
-    ]) + if_rocm_is_configured([
+    ] + if_rocm_is_configured([
         "@local_config_rocm//rocm:rocm_headers",
     ]),
 )
@@ -216,7 +210,7 @@ cc_library(
     name = "gpu_asm_opts",
     hdrs = if_gpu_is_configured(["gpu_asm_opts.h"]),
     deps = [
-        "//tensorflow/stream_executor/cuda:ptxas_utils",
+        #"//tensorflow/stream_executor/cuda:ptxas_utils",
     ],
 )
 
@@ -224,6 +218,6 @@ cc_library(
     name = "redzone_allocator",
     hdrs = ["redzone_allocator.h"],
     deps = [
-        "//tensorflow/stream_executor/cuda:redzone_allocator",
+        #"//tensorflow/stream_executor/cuda:redzone_allocator",
     ],
 )
