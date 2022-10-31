@@ -24,16 +24,12 @@ from tensorflow.python.distribute import combinations
 from tensorflow.python.distribute import distribution_strategy_context
 from tensorflow.python.distribute import mirrored_strategy as mirrored_lib
 from tensorflow.python.distribute import one_device_strategy as one_device_lib
-from tensorflow.python.distribute import tpu_strategy as tpu_lib
-from tensorflow.python.distribute.cluster_resolver import tpu_cluster_resolver
 from tensorflow.python.eager import context
 from tensorflow.python.framework import config
 from tensorflow.python.keras.optimizer_v2 import adagrad as adagrad_keras_v2
 from tensorflow.python.keras.optimizer_v2 import adam as adam_keras_v2
 from tensorflow.python.keras.optimizer_v2 import gradient_descent as gradient_descent_keras_v2
 from tensorflow.python.keras.optimizer_v2 import rmsprop as rmsprop_keras_v2
-from tensorflow.python.tpu import device_assignment as device_assignment_lib
-from tensorflow.python.tpu import tpu_strategy_util
 from tensorflow.python.training import adagrad
 from tensorflow.python.training import adam
 from tensorflow.python.training import gradient_descent
@@ -41,23 +37,6 @@ from tensorflow.python.training import rmsprop
 
 
 # pylint: disable=missing-docstring
-def _get_tpu_strategy_creator(steps_per_run, use_single_core=False, **kwargs):
-  def _create_tpu_strategy():
-    resolver = tpu_cluster_resolver.TPUClusterResolver("")
-    topology = tpu_strategy_util.initialize_tpu_system(resolver)
-    device_assignment = None
-    if use_single_core:
-      device_assignment = device_assignment_lib.DeviceAssignment(
-          topology, core_assignment=device_assignment_lib.
-          SINGLE_CORE_ASSIGNMENT)
-
-    # Steps per run is only supported in TF 1.x
-    if tf2.enabled():
-      return tpu_lib.TPUStrategy(resolver, device_assignment, **kwargs)
-    else:
-      return tpu_lib.TPUStrategyV1(resolver, steps_per_run,
-                                   device_assignment, **kwargs)
-  return _create_tpu_strategy
 
 
 # pylint: disable=g-long-lambda
@@ -81,18 +60,6 @@ one_device_strategy_gpu_on_worker_1 = combinations.NamedDistribution(
     "OneDeviceOnWorker1GPU",
     lambda: one_device_lib.OneDeviceStrategy("/job:worker/replica:0/task:1/gpu:0"),  # pylint: disable=line-too-long
     required_gpus=1)
-tpu_strategy = combinations.NamedDistribution(
-    "TPU", _get_tpu_strategy_creator(steps_per_run=2), required_tpu=True)
-tpu_strategy_one_step = combinations.NamedDistribution(
-    "TPUOneStep", _get_tpu_strategy_creator(steps_per_run=1), required_tpu=True)
-tpu_strategy_one_core = combinations.NamedDistribution(
-    "TPUOneCore",
-    _get_tpu_strategy_creator(steps_per_run=2, use_single_core=True),
-    required_tpu=True)
-tpu_strategy_one_step_one_core = combinations.NamedDistribution(
-    "TPUOneStepOneCore",
-    _get_tpu_strategy_creator(steps_per_run=1, use_single_core=True),
-    required_tpu=True)
 mirrored_strategy_with_one_cpu = combinations.NamedDistribution(
     "Mirrored1CPU", lambda: mirrored_lib.MirroredStrategy(["/cpu:0"]))
 mirrored_strategy_with_one_gpu = combinations.NamedDistribution(
@@ -209,11 +176,6 @@ def distributions_and_v1_and_v2_optimizers():
 strategies_minus_tpu = [
     default_strategy, one_device_strategy, one_device_strategy_gpu,
     mirrored_strategy_with_gpu_and_cpu, mirrored_strategy_with_two_gpus
-]
-
-tpu_strategies = [
-    tpu_strategy,  # steps_per_run=2
-    tpu_strategy_one_step
 ]
 
 

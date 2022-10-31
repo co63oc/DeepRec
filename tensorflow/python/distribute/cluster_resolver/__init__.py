@@ -32,4 +32,3 @@ from tensorflow.python.distribute.cluster_resolver.gce_cluster_resolver import G
 from tensorflow.python.distribute.cluster_resolver.kubernetes_cluster_resolver import KubernetesClusterResolver
 from tensorflow.python.distribute.cluster_resolver.slurm_cluster_resolver import SlurmClusterResolver
 from tensorflow.python.distribute.cluster_resolver.tfconfig_cluster_resolver import TFConfigClusterResolver
-from tensorflow.python.distribute.cluster_resolver.tpu_cluster_resolver import TPUClusterResolver

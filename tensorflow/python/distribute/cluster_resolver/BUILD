@@ -25,7 +25,6 @@ py_library(
         ":kubernetes_cluster_resolver_py",
         ":slurm_cluster_resolver_py",
         ":tfconfig_cluster_resolver_py",
-        ":tpu_cluster_resolver_py",
         "//tensorflow/python:util",
     ],
 )
@@ -57,16 +56,6 @@ py_library(
         ":base_cluster_resolver_py",
         "//tensorflow/python:training_server_lib",
     ],
-)
-
-py_library(
-    name = "tpu_cluster_resolver_py",
-    srcs = ["tpu_cluster_resolver.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":base_cluster_resolver_py",
-        "//tensorflow/python:training_server_lib",
-    ] + tf_additional_rpc_deps(),
 )
 
 py_library(
