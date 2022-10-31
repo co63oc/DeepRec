@@ -83,7 +83,7 @@ COMMON_PIP_DEPS = [
     "//tensorflow/python/eager:eager_pip",
     "//tensorflow/python/keras:model_subclassing_test_util",
     "//tensorflow/python/keras:preprocessing_test_utils",
-    "//tensorflow/python/keras/distribute:distribute_strategy_test_lib",
+    #"//tensorflow/python/keras/distribute:distribute_strategy_test_lib",
     "//tensorflow/python/keras/distribute:multi_worker_testing_utils",
     "//tensorflow/python/keras/mixed_precision/experimental:test_util",
     "//tensorflow/python/kernel_tests:cudnn_deterministic_base",

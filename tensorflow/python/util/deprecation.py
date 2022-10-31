@@ -306,6 +306,8 @@ def deprecated(date, instructions, warn_once=True):
   _validate_deprecation_args(date, instructions)
 
   def deprecated_wrapper(func):
+    return func
+
     """Deprecation wrapper."""
     decorator_utils.validate_callable(func, 'deprecated')
     @functools.wraps(func)
@@ -424,6 +426,8 @@ def deprecated_args(date, instructions, *deprecated_arg_names_or_tuples,
   deprecated_arg_names = _get_arg_names_to_ok_vals()
 
   def deprecated_wrapper(func):
+    return func 
+
     """Deprecation decorator."""
     decorator_utils.validate_callable(func, 'deprecated_args')
 
@@ -553,6 +557,8 @@ def deprecated_arg_values(date, instructions, warn_once=True,
     raise ValueError('Specify which argument values are deprecated.')
 
   def deprecated_wrapper(func):
+    return func
+
     """Deprecation decorator."""
     decorator_utils.validate_callable(func, 'deprecated_arg_values')
     @functools.wraps(func)

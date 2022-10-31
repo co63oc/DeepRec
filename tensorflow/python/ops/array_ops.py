@@ -210,7 +210,7 @@ def identity(input, name=None):  # pylint: disable=redefined-builtin
 # pylint: disable=redefined-builtin,protected-access
 @tf_export(v1=["expand_dims"])
 @dispatch.add_dispatch_support
-@deprecation.deprecated_args(None, "Use the `axis` argument instead", "dim")
+# @deprecation.deprecated_args(None, "Use the `axis` argument instead", "dim")
 def expand_dims(input, axis=None, name=None, dim=None):
   """Inserts a dimension of 1 into a tensor's shape.
 
@@ -259,9 +259,9 @@ def expand_dims(input, axis=None, name=None, dim=None):
   Raises:
     ValueError: if either both or neither of `dim` and `axis` are specified.
   """
-  axis = deprecation.deprecated_argument_lookup("axis", axis, "dim", dim)
-  if axis is None:
-    raise ValueError("Must specify an axis argument to tf.expand_dims()")
+  # axis = deprecation.deprecated_argument_lookup("axis", axis, "dim", dim)
+  # if axis is None:
+  #   raise ValueError("Must specify an axis argument to tf.expand_dims()")
   return expand_dims_v2(input, axis, name)
 
 
@@ -319,28 +319,28 @@ def expand_dims_v2(input, axis, name=None):
 
 # Aliases for some automatically-generated names.
 # pylint: disable=protected-access
-@deprecation.deprecated("2016-11-30",
-                        "This op will be removed after the deprecation date. "
-                        "Please switch to tf.setdiff1d().")
+# @deprecation.deprecated("2016-11-30",
+#                         "This op will be removed after the deprecation date. "
+#                         "Please switch to tf.setdiff1d().")
 def listdiff(x, y, out_idx=None, name=None):
   return gen_array_ops.list_diff(x, y, out_idx, name)
 
 
-listdiff.__doc__ = gen_array_ops.list_diff.__doc__ + "\n" + listdiff.__doc__
+# listdiff.__doc__ = gen_array_ops.list_diff.__doc__ + "\n" + listdiff.__doc__
 
 # pylint: enable=protected-access
 
 
 # pylint: disable=undefined-variable
-@deprecation.deprecated("2018-11-30",
-                        "This op will be removed after the deprecation date. "
-                        "Please switch to tf.sets.difference().")
+# @deprecation.deprecated("2018-11-30",
+#                         "This op will be removed after the deprecation date. "
+#                         "Please switch to tf.sets.difference().")
 @tf_export(v1=["setdiff1d"])
 def setdiff1d(x, y, index_dtype=dtypes.int32, name=None):
   return gen_array_ops.list_diff(x, y, index_dtype, name)
 
 
-setdiff1d.__doc__ = gen_array_ops.list_diff.__doc__
+# setdiff1d.__doc__ = gen_array_ops.list_diff.__doc__
 
 
 @tf_export("broadcast_dynamic_shape")
