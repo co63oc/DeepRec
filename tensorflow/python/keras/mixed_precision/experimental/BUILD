@@ -16,8 +16,6 @@
 # Description:
 #   Contains the Keras Mixed Precision API (TensorFlow version).
 
-load("//tensorflow:tensorflow.bzl", "py_test")
-load("//tensorflow:tensorflow.bzl", "cuda_py_test")
 
 package(
     default_visibility = ["//visibility:public"],
@@ -48,24 +46,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "policy_test",
-    size = "medium",
-    srcs = [
-        "policy_test.py",
-    ],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":policy",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:platform_test",
-        "//tensorflow/python/keras",
-        "//tensorflow/python/keras/mixed_precision/experimental:loss_scale_optimizer",
-        "//tensorflow/python/keras/optimizer_v2",
-    ],
-)
-
 py_library(
     name = "autocast_variable",
     srcs = [
@@ -81,22 +61,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "autocast_variable_test",
-    size = "medium",
-    srcs = ["autocast_variable_test.py"],
-    python_version = "PY2",
-    deps = [
-        ":autocast_variable",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:platform_test",
-        "//tensorflow/python/distribute:mirrored_strategy",
-        "//tensorflow/python/eager:context",
-        "@absl_py//absl/testing:parameterized",
-    ],
-)
-
 py_library(
     name = "loss_scale_optimizer",
     srcs = ["loss_scale_optimizer.py"],
@@ -108,22 +72,6 @@ py_library(
     ],
 )
 
-cuda_py_test(
-    name = "loss_scale_optimizer_test",
-    size = "small",
-    srcs = ["loss_scale_optimizer_test.py"],
-    additional_deps = [
-        ":loss_scale_optimizer",
-        ":test_util",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:control_flow_v2_toggles",
-        "//tensorflow/python/distribute:mirrored_strategy",
-        "//tensorflow/python/distribute:one_device_strategy",
-        "//tensorflow/python/keras",
-    ],
-    xla_enable_strict_auto_jit = True,
-)
-
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
@@ -133,19 +81,3 @@ py_library(
     ],
 )
 
-cuda_py_test(
-    name = "keras_test",
-    size = "medium",
-    srcs = ["keras_test.py"],
-    additional_deps = [
-        ":test_util",
-        "@absl_py//absl/testing:parameterized",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python/distribute:mirrored_strategy",
-        "//tensorflow/python/distribute:one_device_strategy",
-        "//tensorflow/python/keras",
-    ],
-    shard_count = 4,
-    tags = ["no_windows"],  # b/139083295: bfloat16 tests fail on Windows
-    xla_enable_strict_auto_jit = True,
-)

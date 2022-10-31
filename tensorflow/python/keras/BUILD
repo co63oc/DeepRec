@@ -1,8 +1,6 @@
 # Description:
 #   Contains the Keras API (internal TensorFlow version).
 
-load("//tensorflow:tensorflow.bzl", "tf_py_test")
-
 package(
     default_visibility = ["//visibility:public"],
     licenses = ["notice"],  # Apache 2.0

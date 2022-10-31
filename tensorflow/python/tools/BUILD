@@ -1,7 +1,6 @@
 # Description:
 #   Tools for manipulating TensorFlow graphs.
 
-load("//tensorflow:tensorflow.bzl", "py_test")
 load("//tensorflow:tensorflow.bzl", "py_binary")
 
 package(
@@ -41,21 +40,6 @@ py_library(
     name = "saved_model_utils",
     srcs = ["saved_model_utils.py"],
     srcs_version = "PY2AND3",
-)
-
-py_test(
-    name = "saved_model_utils_test",
-    size = "small",
-    srcs = ["saved_model_utils_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    tags = ["no_windows"],  # TODO: needs investigation on Windows
-    visibility = ["//visibility:private"],
-    deps = [
-        ":saved_model_utils",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python/saved_model",
-    ],
 )
 
 py_library(
@@ -117,26 +101,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "freeze_graph_test",
-    size = "small",
-    srcs = ["freeze_graph_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":freeze_graph_lib",
-        "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:client",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:framework_for_generated_wrappers",
-        "//tensorflow/python:framework_test_lib",
-        "//tensorflow/python:math_ops",
-        "//tensorflow/python:training",
-        "//tensorflow/python:variables",
-    ],
-)
-
 py_binary(
     name = "inspect_checkpoint",
     srcs = ["inspect_checkpoint.py"],
@@ -186,25 +150,6 @@ py_binary(
     ],
 )
 
-py_test(
-    name = "strip_unused_test",
-    size = "small",
-    srcs = ["strip_unused_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    tags = ["notap"],
-    deps = [
-        ":strip_unused_lib",
-        "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:client",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:framework_for_generated_wrappers",
-        "//tensorflow/python:framework_test_lib",
-        "//tensorflow/python:math_ops",
-    ],
-)
-
 py_library(
     name = "optimize_for_inference_lib",
     srcs = ["optimize_for_inference_lib.py"],
@@ -243,27 +188,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "optimize_for_inference_test",
-    size = "small",
-    srcs = ["optimize_for_inference_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":optimize_for_inference_lib",
-        "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:framework_for_generated_wrappers",
-        "//tensorflow/python:image_ops",
-        "//tensorflow/python:math_ops",
-        "//tensorflow/python:nn_ops",
-        "//tensorflow/python:nn_ops_gen",
-        "//third_party/py/numpy",
-    ],
-)
-
 py_library(
     name = "selective_registration_header_lib",
     srcs = ["selective_registration_header_lib.py"],
@@ -295,18 +219,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "print_selective_registration_header_test",
-    srcs = ["print_selective_registration_header_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":selective_registration_header_lib",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:platform",
-    ],
-)
-
 py_binary(
     name = "saved_model_cli",
     srcs = ["saved_model_cli.py"],
@@ -326,20 +238,4 @@ py_library(
     ],
 )
 
-py_test(
-    name = "saved_model_cli_test",
-    srcs = ["saved_model_cli_test.py"],
-    data = [
-        "//tensorflow/cc/saved_model:saved_model_half_plus_two",
-    ],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    tags = [
-        "manual",
-        "no-internal-py3",
-    ],
-    deps = [
-        ":saved_model_cli_lib",
-        "//tensorflow/core:protos_all_py",
-    ],
-)
+

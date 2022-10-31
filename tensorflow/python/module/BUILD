@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "tf_py_test")
 
 package(
     default_visibility = ["//tensorflow:internal"],
@@ -20,14 +19,3 @@ py_library(
     ],
 )
 
-tf_py_test(
-    name = "module_test",
-    srcs = ["module_test.py"],
-    additional_deps = [
-        ":module",
-        "@absl_py//absl/testing:parameterized",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python/compat:v2_compat",
-        "//tensorflow/python:variables",
-    ],
-)

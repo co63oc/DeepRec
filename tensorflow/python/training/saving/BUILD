@@ -1,8 +1,6 @@
 # Description:
 #   Low-level utilities for reading and writing checkpoints.
 
-load("//tensorflow:tensorflow.bzl", "cuda_py_test")
-
 package(
     default_visibility = [
         "//tensorflow:internal",
@@ -21,19 +19,6 @@ py_library(
         ":saveable_object_util",
         "//tensorflow/python/eager:def_function",
     ],
-)
-
-cuda_py_test(
-    name = "functional_saver_test",
-    size = "medium",
-    srcs = [
-        "functional_saver_test.py",
-    ],
-    additional_deps = [
-        ":functional_saver",
-        "//tensorflow/python/eager:test",
-    ],
-    xla_enable_strict_auto_jit = True,
 )
 
 py_library(

@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     default_visibility = [
@@ -37,15 +36,3 @@ py_library(
     srcs_version = "PY2AND3",
 )
 
-py_test(
-    name = "util_test",
-    size = "small",
-    srcs = ["util_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":losses",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework_for_generated_wrappers",
-    ],
-)

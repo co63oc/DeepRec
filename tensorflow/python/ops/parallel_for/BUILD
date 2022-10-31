@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "cuda_py_test")
 
 package(
     default_visibility = [
@@ -102,77 +101,6 @@ py_library(
     ],
 )
 
-cuda_py_test(
-    name = "control_flow_ops_test",
-    srcs = ["control_flow_ops_test.py"],
-    additional_deps = [
-        ":control_flow_ops",
-        ":test_util",
-        "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:gradients",
-        "//tensorflow/python:logging_ops",
-        "//tensorflow/python:parsing_ops",
-        "//tensorflow/python:random_ops",
-        "//tensorflow/python:session",
-        "//tensorflow/python:tensor_array_grad",
-        "//tensorflow/python:util",
-    ],
-    tags = ["no_rocm"],
-    xla_enable_strict_auto_jit = True,
-)
-
-cuda_py_test(
-    name = "xla_control_flow_ops_test",
-    srcs = ["xla_control_flow_ops_test.py"],
-    additional_deps = [
-        ":control_flow_ops",
-        ":test_util",
-        "//tensorflow/python/compiler/xla:xla",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:math_ops",
-    ],
-    tags = [
-        "no_rocm",
-        # XLA is not enabled by default on Mac or Windows.
-        "no_mac",
-        "no_windows",
-    ],
-    xla_enable_strict_auto_jit = True,
-    xla_enabled = True,
-)
-
-cuda_py_test(
-    name = "array_test",
-    srcs = ["array_test.py"],
-    additional_deps = [
-        ":control_flow_ops",
-        ":test_util",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:random_ops",
-        "//tensorflow/python:util",
-        "//tensorflow/python/eager:backprop",
-    ],
-    xla_enable_strict_auto_jit = True,
-)
-
-cuda_py_test(
-    name = "math_test",
-    srcs = ["math_test.py"],
-    additional_deps = [
-        ":control_flow_ops",
-        ":test_util",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:math_ops",
-        "//tensorflow/python:random_ops",
-        "//tensorflow/python:util",
-    ],
-    shard_count = 5,
-    tags = ["optonly"],  # Too slow in non-opt mode
-    xla_enable_strict_auto_jit = True,
-)
-
 py_library(
     name = "gradients",
     srcs = ["gradients.py"],
@@ -185,20 +113,3 @@ py_library(
     ],
 )
 
-cuda_py_test(
-    name = "gradients_test",
-    srcs = ["gradients_test.py"],
-    additional_deps = [
-        ":control_flow_ops",
-        ":gradients",
-        "//third_party/py/numpy",
-        "//tensorflow/python:layers",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:control_flow_ops",
-        "//tensorflow/python:functional_ops",
-        "//tensorflow/python:random_ops",
-        "//tensorflow/python/ops/losses",
-    ],
-    tags = ["optonly"],  # Too slow in non-opt mode
-    xla_enable_strict_auto_jit = True,
-)

@@ -1,5 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "cuda_py_test")
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     default_visibility = ["//tensorflow/python/profiler:__subpackages__"],
@@ -36,39 +34,4 @@ py_library(
     ],
 )
 
-py_test(
-    name = "print_model_analysis_test",
-    srcs = ["print_model_analysis_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        "//tensorflow/core/profiler:protos_all_py",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework_for_generated_wrappers",
-        "//tensorflow/python:init_ops",
-        "//tensorflow/python:nn_ops",
-        "//tensorflow/python:pywrap_tensorflow",
-        "//tensorflow/python:variable_scope",
-    ],
-)
 
-cuda_py_test(
-    name = "run_metadata_test",
-    srcs = ["run_metadata_test.py"],
-    additional_deps = [
-        ":model_analyzer_testlib",
-        "//tensorflow/core/profiler:protos_all_py",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:math_ops",
-        "//tensorflow/python/profiler:model_analyzer",
-        "//tensorflow/python:random_ops",
-    ],
-    tags = [
-        "no_gpu",  # b/138442728
-        "no_pip",
-    ],
-    xla_enable_strict_auto_jit = False,  # Node names are different with autojit
-)

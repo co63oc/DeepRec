@@ -15,7 +15,6 @@
 
 # Description:
 #   Keras saving and loading libraries.
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     default_visibility = ["//tensorflow:__subpackages__"],
@@ -47,26 +46,6 @@ py_library(
     ],
 )
 
-py_test(
-    name = "export_output_test",
-    srcs = ["export_output_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":export_output",
-        "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:constant_op",
-        "//tensorflow/python:control_flow_ops",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework_ops",
-        "//tensorflow/python:sparse_tensor",
-        "//tensorflow/python/keras",
-        "//tensorflow/python/saved_model:signature_constants",
-    ],
-)
-
 py_library(
     name = "export_utils",
     srcs = ["export_utils.py"],
@@ -82,40 +61,10 @@ py_library(
     ],
 )
 
-py_test(
-    name = "export_test",
-    srcs = ["export_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":export_utils",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:constant_op",
-        "//tensorflow/python:control_flow_ops",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework_ops",
-        "//tensorflow/python:framework_test_lib",
-        "//tensorflow/python:sparse_tensor",
-        "//tensorflow/python/keras",
-        "//tensorflow/python/saved_model:signature_constants",
-        "//tensorflow/python/saved_model:signature_def_utils",
-    ],
-)
-
 py_library(
     name = "mode_keys",
     srcs = ["mode_keys.py"],
     srcs_version = "PY2AND3",
 )
 
-py_test(
-    name = "mode_keys_test",
-    srcs = ["mode_keys_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [
-        ":mode_keys",
-        "//tensorflow/python:client_testlib",
-    ],
-)
+

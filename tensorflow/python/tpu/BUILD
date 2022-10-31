@@ -5,7 +5,6 @@ load(
     "tf_custom_op_library",
     "tf_gen_op_libs",
     "tf_gen_op_wrapper_py",
-    "tf_py_test",
 )
 load("//tensorflow:tensorflow.bzl", "tf_custom_op_py_library")
 load("//tensorflow/core/platform:default/build_config.bzl", "tf_proto_library")
@@ -223,79 +222,6 @@ py_library(
     ],
 )
 
-tf_py_test(
-    name = "datasets_test",
-    size = "medium",
-    srcs = ["datasets_test.py"],
-    additional_deps = [
-        "//tensorflow/python:client_testlib",
-        ":datasets",
-    ],
-    grpc_enabled = True,
-    shard_count = 4,
-    tags = ["no_oss"],
-)
-
-tf_py_test(
-    name = "tpu_test",
-    size = "small",
-    srcs = ["tpu_test.py"],
-    additional_deps = [
-        ":tpu",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:layers",
-    ],
-    tags = [
-        "no_oss",  # TODO(b/131157871): Reenable in OSS when fixed
-        "no_windows",  # TODO: needs investigation on Windows
-    ],
-)
-
-tf_py_test(
-    name = "tpu_sharding_test",
-    size = "small",
-    srcs = ["tpu_sharding_test.py"],
-    additional_deps = [
-        ":tpu",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-    ],
-)
-
-tf_py_test(
-    name = "bfloat16_test",
-    size = "small",
-    srcs = ["bfloat16_test.py"],
-    additional_deps = [
-        ":tpu",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework",
-    ],
-)
-
-tf_py_test(
-    name = "tpu_infeed_test",
-    size = "small",
-    srcs = ["tpu_infeed_test.py"],
-    additional_deps = [
-        ":tpu",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:framework_test_lib",
-    ],
-)
-
-tf_py_test(
-    name = "topology_test",
-    size = "medium",
-    srcs = ["topology_test.py"],
-    additional_deps = [
-        ":tpu",
-        "//tensorflow/python:framework_test_lib",
-    ],
-)
-
 py_library(
     name = "tpu_embedding",
     srcs = [
@@ -358,50 +284,6 @@ py_library(
         "//tensorflow/python/feature_column",
         "//tensorflow/python/feature_column:feature_column_py",
     ],
-)
-
-tf_py_test(
-    name = "feature_column_test",
-    srcs = [
-        "feature_column_test.py",
-    ],
-    additional_deps = [
-        ":feature_column",
-        "//third_party/py/numpy",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework_ops",
-        "//tensorflow/python:lookup_ops",
-        "//tensorflow/python:parsing_ops",
-        "//tensorflow/python:session",
-        "//tensorflow/python:sparse_tensor",
-        "//tensorflow/python:variables",
-        "//tensorflow/python/feature_column",
-        "//tensorflow/python/feature_column:feature_column_py",
-    ],
-    main = "feature_column_test.py",
-)
-
-tf_py_test(
-    name = "feature_column_v2_test",
-    srcs = [
-        "feature_column_v2_test.py",
-    ],
-    additional_deps = [
-        ":feature_column_v2",
-        "//third_party/py/numpy",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework_ops",
-        "//tensorflow/python:lookup_ops",
-        "//tensorflow/python:parsing_ops",
-        "//tensorflow/python:session",
-        "//tensorflow/python:sparse_tensor",
-        "//tensorflow/python:variables",
-        "//tensorflow/python/feature_column",
-        "//tensorflow/python/feature_column:feature_column_py",
-    ],
-    main = "feature_column_v2_test.py",
 )
 
 tf_proto_library(
