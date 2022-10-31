@@ -672,7 +672,7 @@ def tf_additional_core_deps():
         "//tensorflow:windows": [],
         "//tensorflow:no_gcp_support": [],
         "//conditions:default": [
-            "//tensorflow/core/platform/cloud:gcs_file_system",
+            #"//tensorflow/core/platform/cloud:gcs_file_system",
         ],
     }) + select({
         "//tensorflow:android": [],
@@ -681,7 +681,7 @@ def tf_additional_core_deps():
         "//tensorflow:windows": [],
         "//tensorflow:no_hdfs_support": [],
         "//conditions:default": [
-            "//tensorflow/core/platform/hadoop:hadoop_file_system",
+            #"//tensorflow/core/platform/hadoop:hadoop_file_system",
         ],
     }) + select({
         "//tensorflow:android": [],
@@ -705,8 +705,8 @@ def tf_additional_cloud_op_deps():
         "//tensorflow:windows_and_api_version_2": [],
         "//tensorflow:no_gcp_support": [],
         "//conditions:default": [
-            "//tensorflow/contrib/cloud:bigquery_reader_ops_op_lib",
-            "//tensorflow/contrib/cloud:gcs_config_ops_op_lib",
+            #"//tensorflow/contrib/cloud:bigquery_reader_ops_op_lib",
+            #"//tensorflow/contrib/cloud:gcs_config_ops_op_lib",
         ],
     })
 
@@ -721,8 +721,8 @@ def tf_additional_cloud_kernel_deps():
         "//tensorflow:windows_and_api_version_2": [],
         "//tensorflow:no_gcp_support": [],
         "//conditions:default": [
-            "//tensorflow/contrib/cloud/kernels:bigquery_reader_ops",
-            "//tensorflow/contrib/cloud/kernels:gcs_config_ops",
+            #"//tensorflow/contrib/cloud/kernels:bigquery_reader_ops",
+            #"//tensorflow/contrib/cloud/kernels:gcs_config_ops",
         ],
     })
 
