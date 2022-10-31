@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "tf_py_test")
 
 package(
     licenses = ["notice"],  # Apache 2.0
@@ -28,24 +27,3 @@ py_library(
     ],
 )
 
-tf_py_test(
-    name = "compat_test",
-    size = "small",
-    srcs = ["compat_test.py"],
-    additional_deps = [
-        ":compat",
-        "//tensorflow/python:client_testlib",
-    ],
-    tags = ["nofwdcompat"],
-)
-
-tf_py_test(
-    name = "disable_v2_behavior_test",
-    size = "small",
-    srcs = ["disable_v2_behavior_test.py"],
-    additional_deps = [
-        ":v2_compat",
-        "//tensorflow/python:framework",
-        "//tensorflow/python:client_testlib",
-    ],
-)

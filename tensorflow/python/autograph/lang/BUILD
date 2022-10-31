@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     licenses = ["notice"],  # Apache 2.0
@@ -31,12 +30,4 @@ py_library(
     ],
 )
 
-py_test(
-    name = "special_functions_test",
-    srcs = ["special_functions_test.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":lang",
-        "//tensorflow/python:client_testlib",
-    ],
-)
+

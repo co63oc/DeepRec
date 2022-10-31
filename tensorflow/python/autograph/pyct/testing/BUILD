@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     licenses = ["notice"],  # Apache 2.0
@@ -40,22 +39,4 @@ py_library(
     ],
 )
 
-py_test(
-    name = "codegen_test",
-    size = "large",
-    srcs = ["codegen_test.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    tags = [
-        "manual",
-        "no_windows",
-        "nomsan",
-        "notap",
-    ],
-    deps = [
-        ":codegen",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python/autograph/pyct",
-        "@gast_archive//:gast",
-    ],
-)
+

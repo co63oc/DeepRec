@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "cuda_py_test")
 
 package(
     licenses = ["notice"],  # Apache 2.0
@@ -15,40 +14,3 @@ py_library(
     deps = ["@six_archive//:six"],
 )
 
-cuda_py_test(
-    name = "memory_test",
-    size = "medium",
-    srcs = ["memory_test.py"],
-    additional_deps = [
-        ":memory_test_util",
-        "//tensorflow/python/keras",
-        "//tensorflow/python/eager:backprop",
-        "//tensorflow/python/eager:test",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-        "//tensorflow/python:framework_test_lib",
-        "@six_archive//:six",
-    ],
-    tags = [
-        "optonly",  # The test is too slow in non-opt mode
-    ],
-    xla_enable_strict_auto_jit = True,
-)
-
-cuda_py_test(
-    name = "remote_memory_test",
-    size = "medium",
-    srcs = ["remote_memory_test.py"],
-    additional_deps = [
-        ":memory_test_util",
-        "//tensorflow/python/eager:backprop",
-        "//tensorflow/python/eager:remote",
-        "//tensorflow/python/eager:test",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:client_testlib",
-    ],
-    tags = [
-        "optonly",  # The test is too slow in non-opt mode
-    ],
-    xla_enable_strict_auto_jit = True,
-)

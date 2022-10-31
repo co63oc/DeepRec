@@ -1,4 +1,3 @@
-load("//tensorflow:tensorflow.bzl", "py_test")
 
 package(
     licenses = ["notice"],  # Apache 2.0
@@ -56,33 +55,4 @@ py_library(
     ],
 )
 
-py_test(
-    name = "converter_test",
-    srcs = ["converter_test.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":core",
-        ":test_lib",
-        "//tensorflow/python:client_testlib",
-    ],
-)
 
-py_test(
-    name = "function_wrappers_test",
-    srcs = ["function_wrappers_test.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":core",
-        "//tensorflow/python:client_testlib",
-    ],
-)
-
-py_test(
-    name = "naming_test",
-    srcs = ["naming_test.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":core",
-        "//tensorflow/python:client_testlib",
-    ],
-)
