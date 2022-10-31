@@ -149,11 +149,6 @@ tf_kernel_library(
         "slice_op.h",
         "strided_slice_op.h",
         "strided_slice_op_impl.h",
-        "strided_slice_op_gpu_impl.h",
-        "strided_slice_op_gpu_int.cu.cc",
-        "strided_slice_op_gpu_complex.cu.cc",
-        "strided_slice_op_gpu_bool.cu.cc",
-        "strided_slice_op_gpu_number_types.cu.cc",
     ],
     deps = [
         ":bounds_check",
@@ -252,7 +247,6 @@ tf_kernel_library(
     name = "concat_lib",
     srcs = [
         "concat_lib_cpu.cc",
-        "concat_lib_gpu.cc",
     ],
     hdrs = [
         "concat_lib.h",
@@ -262,11 +256,8 @@ tf_kernel_library(
         "-Wno-pass-failed",  # clang misses #pragma loop optimizations
     ]),
     gpu_srcs = [
-        "concat_lib_gpu_impl.cu.cc",
         "concat_lib.h",
-        "concat_lib_gpu.h",
         "gpu_device_array.h",
-        "gpu_device_array_gpu.h",
     ],
     deps = [
         ":bounds_check",
@@ -293,15 +284,6 @@ tf_kernel_library(
     ]),
     gpu_srcs = [
         "conv_2d.h",
-        "conv_2d_gpu.h",
-        "conv_2d_gpu_double.cu.cc",
-        "conv_2d_gpu_float.cu.cc",
-        "conv_2d_gpu_half.cu.cc",
-        "conv_2d_gpu_int.cu.cc",
-        "conv_2d_gpu_uint16.cu.cc",
-        "conv_2d_gpu_uint32.cu.cc",
-        "conv_2d_gpu_uint64.cu.cc",
-        "conv_2d_gpu_uint8.cu.cc",
     ],
     deps = [
         ":eigen_helpers",
@@ -521,11 +503,6 @@ cc_library(
     deps = ["//third_party/eigen3"],
 )
 
-cc_library(
-    name = "conv_ops_gpu_hdrs",
-    hdrs = ["conv_ops_gpu.h"],
-)
-
 # We keep this target only because some contrib/ targets depend on it. The
 # reason why the contrib/ targets can't depend on gpu_utils is that, some
 # of the targets are tf_custom_op_library. tf_custom_op_library forbids the
@@ -706,12 +683,9 @@ tf_kernel_library(
     srcs = ["split_lib_cpu.cc"],
     hdrs = ["split_lib.h"],
     gpu_srcs = [
-        "split_lib_gpu.cu.cc",
-        "split_lib.h",
-        "split_lib_gpu.h",
     ],
     deps = [
-        ":gpu_device_array",
+        #":gpu_device_array",
         "//tensorflow/core:framework",
         "//third_party/eigen3",
     ],
@@ -766,7 +740,6 @@ cc_library(
     name = "gpu_device_array",
     hdrs = [
         "gpu_device_array.h",
-        "gpu_device_array_gpu.h",
     ],
     visibility = ["//tensorflow:__subpackages__"],
     deps = [
@@ -1230,7 +1203,6 @@ tf_kernel_library(
     hdrs = ["compare_and_bitpack_op.h"],
     gpu_srcs = [
         "compare_and_bitpack_op.h",
-        "compare_and_bitpack_op_gpu.cu.cc",
     ],
     deps = ARRAY_DEPS,
 )
@@ -1295,14 +1267,14 @@ tf_kernel_library(
 
 tf_kernel_library(
     name = "split_op",
-    gpu_srcs = ["gpu_device_array.h"],
+    # gpu_srcs = ["gpu_device_array.h"],
     prefix = "split_op",
     deps = ARRAY_DEPS + [":split_lib"],
 )
 
 tf_kernel_library(
     name = "split_v_op",
-    gpu_srcs = ["gpu_device_array.h"],
+    # gpu_srcs = ["gpu_device_array.h"],
     prefix = "split_v_op",
     deps = ARRAY_DEPS + [":split_lib"],
 )
@@ -1325,16 +1297,6 @@ tf_kernel_library(
     hdrs = ["tile_functor.h"],
     gpu_srcs = [
         "tile_functor.h",
-        "tile_functor_gpu.h",
-        "tile_functor_gpu_bool.cu.cc",
-        "tile_functor_gpu_complex64.cu.cc",
-        "tile_functor_gpu_complex128.cu.cc",
-        "tile_functor_gpu_double.cu.cc",
-        "tile_functor_gpu_float.cu.cc",
-        "tile_functor_gpu_half.cu.cc",
-        "tile_functor_gpu_int16.cu.cc",
-        "tile_functor_gpu_int32.cu.cc",
-        "tile_functor_gpu_int64.cu.cc",
     ],
     prefix = "tile_ops",
     deps = ARRAY_DEPS,
@@ -1373,15 +1335,6 @@ tf_kernel_library(
     hdrs = ["where_op.h"],
     gpu_srcs = [
         "where_op.h",
-        "where_op_gpu.cu.h",
-        "where_op_gpu_impl_1.cu.cc",
-        "where_op_gpu_impl_2.cu.cc",
-        "where_op_gpu_impl_3.cu.cc",
-        "where_op_gpu_impl_4.cu.cc",
-        "where_op_gpu_impl_5.cu.cc",
-        "where_op_gpu_impl_6.cu.cc",
-        "where_op_gpu_impl_7.cu.cc",
-        "where_op_gpu_impl_8.cu.cc",
     ],
     deps = if_cuda_or_rocm([
         ":cuda_solvers",
@@ -2020,7 +1973,6 @@ tf_kernel_library(
     hdrs = ["dense_update_functor.h"],
     gpu_srcs = [
         "dense_update_functor.h",
-        "dense_update_functor_gpu.cu.cc",
     ],
     deps = [
         "//tensorflow/core:framework",
@@ -2278,7 +2230,6 @@ tf_kernel_library(
     srcs = ["transpose_functor_cpu.cc"],
     hdrs = ["transpose_functor.h"],
     gpu_srcs = [
-        "transpose_functor_gpu.cu.cc",
         "transpose_functor.h",
     ],
     visibility = [":friends"],
@@ -2598,7 +2549,6 @@ tf_kernel_library(
     name = "dynamic_stitch_op",
     gpu_srcs = [
         "gpu_device_array.h",
-        "gpu_device_array_gpu.h",
     ],
     prefix = "dynamic_stitch_op",
     deps = DYNAMIC_DEPS,
@@ -2684,7 +2634,6 @@ tf_kernel_library(
     name = "eye_functor",
     hdrs = ["eye_functor.h"],
     gpu_srcs = [
-        "eye_functor_gpu.cu.cc",
         "eye_functor.h",
     ],
     visibility = [":friends"],
@@ -2829,8 +2778,6 @@ tf_kernel_library(
     hdrs = ["kv_variable_ops.h"],
     srcs = ["kv_variable_ops.cc"],
     gpu_srcs = [
-        "kv_variable_ops_gpu.cu.cc",
-        "kv_variable_ops_gpu.h",
     ],
     copts = ["-g"],
     nocopts = "-fno-exceptions",
@@ -2993,20 +2940,20 @@ tf_kernel_library(
 
 cc_library(
     name = "adjust_hsv_gpu_lib",
-    hdrs = ["adjust_hsv_gpu.cu.h"],
+    hdrs = [],
     deps = ["//tensorflow/core:framework"],
 )
 
 tf_kernel_library(
     name = "adjust_hue_op",
     prefix = "adjust_hue_op",
-    deps = IMAGE_DEPS + [":adjust_hsv_gpu_lib"],
+    deps = IMAGE_DEPS,
 )
 
 tf_kernel_library(
     name = "adjust_saturation_op",
     prefix = "adjust_saturation_op",
-    deps = IMAGE_DEPS + [":adjust_hsv_gpu_lib"],
+    deps = IMAGE_DEPS,
 )
 
 tf_kernel_library(
@@ -3372,58 +3319,6 @@ tf_cuda_cc_test(
     ],
 )
 
-tf_cuda_cc_test(
-    name = "non_max_suppression_op_gpu_test",
-    srcs = ["non_max_suppression_op_gpu_test.cc"],
-    tags = tf_cuda_tests_tags() + ["no_cuda_on_cpu_tap"],
-    deps = [
-        ":image",
-        ":ops_testutil",
-        ":ops_util",
-        "//tensorflow/core:core_cpu",
-        "//tensorflow/core:framework",
-        "//tensorflow/core:lib",
-        "//tensorflow/core:protos_all_cc",
-        "//tensorflow/core:test",
-        "//tensorflow/core:test_main",
-        "//tensorflow/core:testlib",
-    ],
-)
-
-tf_cuda_cc_test(
-    name = "batched_non_max_suppression_op_gpu_test",
-    srcs = ["batched_non_max_suppression_op_gpu_test.cc"],
-    tags = tf_cuda_tests_tags() + ["no_cuda_on_cpu_tap"],
-    deps = [
-        ":image",
-        ":ops_testutil",
-        ":ops_util",
-        "//tensorflow/core:core_cpu",
-        "//tensorflow/core:framework",
-        "//tensorflow/core:lib",
-        "//tensorflow/core:protos_all_cc",
-        "//tensorflow/core:test",
-        "//tensorflow/core:test_main",
-        "//tensorflow/core:testlib",
-    ],
-)
-
-tf_cuda_cc_test(
-    name = "resize_benchmark_test",
-    srcs = ["resize_op_benchmark_test.cc"],
-    deps = [
-        ":image",
-        ":ops_testutil",
-        ":ops_util",
-        "//tensorflow/core:core_cpu",
-        "//tensorflow/core:framework",
-        "//tensorflow/core:protos_all_cc",
-        "//tensorflow/core:test",
-        "//tensorflow/core:test_main",
-        "//tensorflow/core:testlib",
-    ],
-)
-
 cc_library(
     name = "io",
     deps = [
@@ -3737,19 +3632,15 @@ tf_kernel_library(
 tf_kernel_library(
     name = "tridiagonal_matmul_op",
     srcs = ["tridiagonal_matmul_op.cc"],
-    gpu_srcs = ["tridiagonal_matmul_op_gpu.cu.cc"],
-    deps = LINALG_DEPS + if_cuda([
-        ":cuda_sparse",
-    ]),
+    gpu_srcs = [],
+    deps = LINALG_DEPS,
 )
 
 tf_kernel_library(
     name = "tridiagonal_solve_op",
     srcs = ["tridiagonal_solve_op.cc"],
-    gpu_srcs = ["tridiagonal_solve_op_gpu.cu.cc"],
-    deps = LINALG_DEPS + if_cuda([
-        ":cuda_sparse",
-    ]),
+    gpu_srcs = [],
+    deps = LINALG_DEPS,
 )
 
 tf_kernel_library(
@@ -3893,7 +3784,6 @@ tf_kernel_library(
     srcs = ["roll_op.cc"],
     hdrs = ["roll_op.h"],
     gpu_srcs = [
-        "roll_op_gpu.cu.cc",
         "roll_op.h",
     ],
     deps = [
@@ -4162,7 +4052,7 @@ tf_cc_test_mkl(
 
 tf_kernel_library(
     name = "reduction_ops",
-    gpu_srcs = ["reduction_gpu_kernels.cu.h"],
+    gpu_srcs = [],
     prefix = "reduction_ops",
     deps = MATH_DEPS + [":transpose_functor"] + if_cuda([
         "@local_config_cuda//cuda:cub_headers",
@@ -4187,17 +4077,8 @@ tf_kernel_library(
     hdrs = ["scan_ops.h"],
     gpu_srcs = [
         "scan_ops.h",
-        "scan_ops_gpu.h",
-        "scan_ops_gpu_double.cu.cc",
-        "scan_ops_gpu_float.cu.cc",
-        "scan_ops_gpu_half.cu.cc",
-        "scan_ops_gpu_int.cu.cc",
     ],
-    deps = MATH_DEPS + if_cuda([
-        "@local_config_cuda//cuda:cub_headers",
-    ]) + if_rocm([
-        "@rocprim_archive//:rocprim",
-    ]),
+    deps = MATH_DEPS,
 )
 
 tf_kernel_library(
@@ -4622,10 +4503,6 @@ tf_kernel_library(
     ]),
     gpu_srcs = [
         "depthwise_conv_op.h",
-        "depthwise_conv_op_gpu.h",
-        "depthwise_conv_op_gpu_double.cu.cc",
-        "depthwise_conv_op_gpu_float.cu.cc",
-        "depthwise_conv_op_gpu_half.cu.cc",
     ],
     deps = [
         ":bounds_check",
@@ -4786,7 +4663,7 @@ tf_kernel_library(
 tf_kernel_library(
     name = "lrn_op",
     prefix = "lrn_op",
-    deps = NN_DEPS + if_rocm([":conv_ops_gpu_hdrs"]),
+    deps = NN_DEPS,
 )
 
 tf_kernel_library(
@@ -4831,16 +4708,6 @@ tf_kernel_library(
     hdrs = ["topk_op.h"],
     gpu_srcs = [
         "topk_op.h",
-        "topk_op_gpu.h",
-        "topk_op_gpu_double.cu.cc",
-        "topk_op_gpu_float.cu.cc",
-        "topk_op_gpu_half.cu.cc",
-        "topk_op_gpu_int64.cu.cc",
-        "topk_op_gpu_int32.cu.cc",
-        "topk_op_gpu_int16.cu.cc",
-        "topk_op_gpu_uint16.cu.cc",
-        "topk_op_gpu_int8.cu.cc",
-        "topk_op_gpu_uint8.cu.cc",
     ],
     deps = NN_DEPS + if_cuda([
         "@local_config_cuda//cuda:cub_headers",
@@ -4969,7 +4836,6 @@ tf_kernel_library(
     name = "pooling_ops",
     srcs = [
         "avgpooling_op.cc",
-        "cudnn_pooling_gpu.cc",
         "fractional_avg_pool_op.cc",
         "fractional_max_pool_op.cc",
         "fractional_pool_common.cc",
@@ -4979,7 +4845,6 @@ tf_kernel_library(
     ],
     hdrs = [
         "avgpooling_op.h",
-        "cudnn_pooling_gpu.h",
         "fractional_pool_common.h",
         "maxpooling_op.h",
         "pooling_ops_3d.h",
@@ -4987,14 +4852,8 @@ tf_kernel_library(
     ] + if_sycl(["pooling_ops_3d_sycl.h"]),
     gpu_srcs = [
         "avgpooling_op.h",
-        "avgpooling_op_gpu.cu.cc",
         "maxpooling_op.h",
-        "maxpooling_op_gpu.cu.cc",
-        "maxpooling_op_gpu.h",
         "pooling_ops_common.h",
-        "pooling_ops_common_gpu.h",
-        "pooling_ops_3d_gpu.h",
-        "pooling_ops_3d_gpu.cu.cc",
     ],
     deps = [
         ":bounds_check",
@@ -5017,7 +4876,6 @@ tf_kernel_library(
     srcs = ["fake_quant_ops.cc"],
     hdrs = ["fake_quant_ops_functor.h"],
     gpu_srcs = [
-        "fake_quant_ops_gpu.cu.cc",
         "fake_quant_ops_functor.h",
     ],
     deps = [
@@ -5064,7 +4922,6 @@ tf_kernel_library(
     ],
     gpu_srcs = [
         "spacetobatch_functor.h",
-        "spacetobatch_functor_gpu.cu.cc",
     ],
     visibility = [":friends"],
     deps = [
@@ -5104,9 +4961,7 @@ tf_kernel_library(
     ],
     gpu_srcs = [
         "depthtospace_op.h",
-        "depthtospace_op_gpu.cu.cc",
         "spacetodepth_op.h",
-        "spacetodepth_op_gpu.cu.cc",
     ],
     visibility = [":friends"],
     deps = [
@@ -5332,9 +5187,6 @@ tf_kernel_library(
     ],
     hdrs = ["fused_embedding/embedding_lookup_sparse_op.h"],
     gpu_srcs = [
-        "fused_embedding/fused_embedding_local_ops_gpu.cu.cc",
-        "fused_embedding/fused_embedding_pre_ops_gpus.cu.cc",
-        "fused_embedding/fused_embedding_post_ops_gpus.cu.cc"
     ],
     deps = ["//third_party/eigen3"] + DYNAMIC_DEPS + mkl_deps() +
            if_cuda(["@cub_archive//:cub", ":fused_embedding_common_cuh"]),
@@ -5817,7 +5669,6 @@ tf_kernel_library(
     ]),
     gpu_srcs = [
         "scatter_nd_op.h",
-        "scatter_nd_op_gpu.cu.cc",
     ],
     deps = STATE_DEPS + [
         ":dense_update_functor",
@@ -6225,8 +6076,6 @@ tf_kernel_library(
     ],
     srcs = ["training_ali_ops.cc"],
     gpu_srcs = [
-        "training_ali_ops_gpu.cu.cc",
-        "training_ali_ops_gpu.h",
         "training_ali_ops.h"
     ],
     copts = ["-g"],
@@ -6795,7 +6644,6 @@ filegroup(
         "conv_2d.h",
         "conv_3d.h",
         "conv_ops.h",
-        "conv_ops_gpu.h",
         "crop_resize_bilinear_core.h",
         "data_format_ops.h",
         "depthtospace_op.h",
@@ -7189,7 +7037,6 @@ filegroup(
         # Referenced by stateful_random_ops.cc but excluded with the *gpu*
         # rule above. Seems to have only have worked before because of
         # hdrs_check loose.
-        "stateful_random_ops_cpu_gpu.h",
     ],
     visibility = ["//visibility:public"],
 )
@@ -8937,8 +8784,6 @@ cc_library(
     hdrs = [
         "cwise_ops.h",
         "cwise_ops_common.h",
-        "cwise_ops_gpu_common.cu.h",
-        "cwise_ops_gpu_gradients.cu.h",
         "cwise_ops_gradients.h",
         "fill_functor.h",
         "meta_support.h",
