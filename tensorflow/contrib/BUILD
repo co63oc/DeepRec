@@ -22,6 +22,7 @@ py_library(
     deps = [
         "//tensorflow/contrib/compiler:compiler_py",
         "//tensorflow/contrib/compiler:xla",
+        "//tensorflow/contrib/autograph",
         "//tensorflow/contrib/crf:crf_py",
         "//tensorflow/contrib/data",
         "//tensorflow/contrib/rnn:rnn_py",

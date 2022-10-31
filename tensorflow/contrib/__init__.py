@@ -31,6 +31,7 @@ import os
 import platform
 
 # Add projects here, they will show up under tf.contrib.
+"""
 from tensorflow.contrib import autograph
 from tensorflow.contrib import batching
 from tensorflow.contrib import bayesflow
@@ -76,7 +77,9 @@ from tensorflow.contrib import quantization
 from tensorflow.contrib import quantize
 from tensorflow.contrib import reduce_slice_ops
 from tensorflow.contrib import resampler
+"""
 from tensorflow.contrib import rnn
+"""
 from tensorflow.contrib import rpc
 from tensorflow.contrib import saved_model
 from tensorflow.contrib import seq2seq
@@ -103,12 +106,15 @@ from tensorflow.contrib.recurrent.python import recurrent_api as recurrent
 from tensorflow.contrib.remote_fused_graph import pylib as remote_fused_graph
 from tensorflow.contrib.specs import python as specs
 from tensorflow.contrib.summary import summary
+"""
+"""
 
 if os.name != "nt" and platform.machine() != "s390x":
   try:
     from tensorflow.contrib import cloud
   except ImportError:
     pass
+"""
 
 from tensorflow.python.util.lazy_loader import LazyLoader
 ffmpeg = LazyLoader("ffmpeg", globals(),
