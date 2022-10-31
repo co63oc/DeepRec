@@ -1,6 +1,5 @@
 # Tests of tf.io.*proto.
 
-load("//tensorflow:tensorflow.bzl", "tf_py_test")
 load("//tensorflow:tensorflow.bzl", "tf_cc_shared_object")
 load("//tensorflow/core/platform:default/build_config_root.bzl", "if_static")
 load("//tensorflow/core/platform:default/build_config.bzl", "tf_additional_all_protos", "tf_proto_library")
@@ -12,44 +11,6 @@ package(
 )
 
 exports_files(["LICENSE"])
-
-tf_py_test(
-    name = "decode_proto_op_test",
-    size = "small",
-    srcs = ["decode_proto_op_test.py"],
-    additional_deps = [
-        ":decode_proto_op_test_base",
-        ":py_test_deps",
-        "//tensorflow/python:proto_ops",
-    ],
-    data = if_static(
-        [],
-        otherwise = [":libtestexample.so"],
-    ),
-    tags = [
-        "no_pip",  # TODO(b/78026780)
-        "no_windows",  # TODO(b/78028010)
-    ],
-)
-
-tf_py_test(
-    name = "encode_proto_op_test",
-    size = "small",
-    srcs = ["encode_proto_op_test.py"],
-    additional_deps = [
-        ":encode_proto_op_test_base",
-        ":py_test_deps",
-        "//tensorflow/python:proto_ops",
-    ],
-    data = if_static(
-        [],
-        otherwise = [":libtestexample.so"],
-    ),
-    tags = [
-        "no_pip",  # TODO(b/78026780)
-        "no_windows",  # TODO(b/78028010)
-    ],
-)
 
 py_library(
     name = "proto_op_test_base",
@@ -114,16 +75,3 @@ py_library(
     ],
 )
 
-tf_py_test(
-    name = "descriptor_source_test",
-    size = "small",
-    srcs = ["descriptor_source_test.py"],
-    additional_deps = [
-        ":descriptor_source_test_base",
-        "//tensorflow/python:proto_ops",
-        "//tensorflow/python:client_testlib",
-    ],
-    tags = [
-        "no_pip",
-    ],
-)
