@@ -60,7 +60,7 @@ COMMON_PIP_DEPS = [
     "setup.py",
     ":included_headers",
     "//tensorflow:tensorflow_py",
-    #"//tensorflow/examples/saved_model/integration_tests:mnist_util",
+    "//tensorflow/examples/saved_model/integration_tests:mnist_util",
     "//tensorflow/python/autograph/core:test_lib",
     "//tensorflow/python/autograph/pyct/testing",
     "//tensorflow/python/autograph/pyct/common_transformers:common_transformers",
@@ -134,7 +134,7 @@ COMMON_PIP_DEPS_V1 = COMMON_PIP_DEPS + [
     #"//tensorflow/contrib/tensor_forest/hybrid:hybrid_pip",
     #"//tensorflow/contrib/timeseries:timeseries_pip",
     #"//tensorflow/contrib/tpu",
-    #"//tensorflow/examples/tutorials/mnist:package",
+    "//tensorflow/examples/tutorials/mnist:package",
 ]
 
 # On Windows, python binary is a zip file of runfiles tree.
