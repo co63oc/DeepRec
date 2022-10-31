@@ -53,7 +53,7 @@ py_library(
     deps = [
         ":no_contrib",
         "//tensorflow/python/estimator:estimator_py",
-        "//tensorflow/python/tpu:tpu_estimator",
+        #"//tensorflow/python/tpu:tpu_estimator",
     ] + if_not_v2(["//tensorflow/contrib:contrib_py"]),
 )
 
@@ -188,7 +188,7 @@ py_library(
         "//tensorflow/python/saved_model",
         "//tensorflow/python/tools:module_util",
         "//tensorflow/python/tools/api/generator:create_python_api",
-        "//tensorflow/python/tpu:tpu_noestimator",
+        #"//tensorflow/python/tpu:tpu_noestimator",
         "//third_party/py/numpy",
     ],
 )
@@ -1656,26 +1656,16 @@ tf_gen_op_wrapper_private_py(
     ],
 )
 
-tf_gen_op_wrapper_private_py(
-    name = "tpu_ops_gen",
-    visibility = [
-        "//smartass/brain/configure/python:__pkg__",
-        "//tensorflow/contrib/tpu:__pkg__",
-        "//tensorflow/python/tpu:__pkg__",
-    ],
-    deps = [
-        "//tensorflow/core:tpu_configuration_ops_op_lib",
-        "//tensorflow/core:tpu_cross_replica_ops_op_lib",
-        "//tensorflow/core:tpu_embedding_ops_op_lib",
-        "//tensorflow/core:tpu_functional_ops_op_lib",
-        "//tensorflow/core:tpu_heartbeat_ops_op_lib",
-        "//tensorflow/core:tpu_host_compute_ops_op_lib",
-        "//tensorflow/core:tpu_infeed_ops_op_lib",
-        "//tensorflow/core:tpu_ordinal_selector_ops_op_lib",
-        "//tensorflow/core:tpu_outfeed_ops_op_lib",
-        "//tensorflow/core:tpu_replication_ops_op_lib",
-    ],
-)
+#tf_gen_op_wrapper_private_py(
+#    name = "tpu_ops_gen",
+#    visibility = [
+#        "//smartass/brain/configure/python:__pkg__",
+#        "//tensorflow/contrib/tpu:__pkg__",
+#        "//tensorflow/python/tpu:__pkg__",
+#    ],
+#    deps = [
+#    ],
+#)
 
 py_library(
     name = "array_grad",

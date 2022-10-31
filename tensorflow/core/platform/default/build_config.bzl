@@ -690,7 +690,7 @@ def tf_additional_core_deps():
         "//tensorflow:windows": [],
         "//tensorflow:no_aws_support": [],
         "//conditions:default": [
-            "//tensorflow/core/platform/s3:s3_file_system",
+            #"//tensorflow/core/platform/s3:s3_file_system",
         ],
     })
 

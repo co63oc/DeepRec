@@ -60,7 +60,7 @@ COMMON_PIP_DEPS = [
     "setup.py",
     ":included_headers",
     "//tensorflow:tensorflow_py",
-    "//tensorflow/examples/saved_model/integration_tests:mnist_util",
+    #"//tensorflow/examples/saved_model/integration_tests:mnist_util",
     "//tensorflow/python/autograph/core:test_lib",
     "//tensorflow/python/autograph/pyct/testing",
     "//tensorflow/python/autograph/pyct/common_transformers:common_transformers",

@@ -15,6 +15,5 @@ py_library(
         "//tensorflow/python/distribute:central_storage_strategy",
         "//tensorflow/python/distribute:collective_all_reduce_strategy",
         "//tensorflow/python/distribute:parameter_server_strategy",
-        "//tensorflow/python/distribute:tpu_strategy",
     ],
 )

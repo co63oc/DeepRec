@@ -340,35 +340,6 @@ py_library(
     ],
 )
 
-py_library(
-    name = "tpu_strategy",
-    srcs = ["tpu_strategy.py"],
-    visibility = ["//tensorflow:internal"],
-    deps = [
-        ":cross_device_ops",
-        ":device_util",
-        ":distribute_lib",
-        "//tensorflow/python:array_ops",
-        "//tensorflow/python:constant_op",
-        "//tensorflow/python:control_flow_ops",
-        "//tensorflow/python:dtypes",
-        "//tensorflow/python:framework_ops",
-        "//tensorflow/python:math_ops",
-        "//tensorflow/python:tensor_util",
-        "//tensorflow/python:util",
-        "//tensorflow/python:variable_scope",
-        "//tensorflow/python/distribute:input_lib",
-        "//tensorflow/python/distribute:numpy_dataset",
-        "//tensorflow/python/distribute:reduce_util",
-        "//tensorflow/python/distribute:values",
-        "//tensorflow/python/distribute/cluster_resolver:cluster_resolver_lib",
-        "//tensorflow/python/eager:context",
-        "//tensorflow/python/eager:tape",
-        "//tensorflow/python/tpu:tpu_lib",
-        "//tensorflow/python/tpu:tpu_py",
-    ],
-)
-
 # Used only by estimator.
 py_library(
     name = "estimator_training",
@@ -447,7 +418,7 @@ py_library(
         ":distribute_lib",
         ":mirrored_strategy",
         ":one_device_strategy",
-        ":tpu_strategy",
+        #":tpu_strategy",
         "//tensorflow/python:config",
         "//tensorflow/python:framework_ops",
         "//tensorflow/python:training",

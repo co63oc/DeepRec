@@ -47,9 +47,7 @@ py_library(
         ":offline_analyzer_lib",
         ":session_debug_testlib",
         ":source_remote",
-    ] + if_not_windows([
-        ":debug_examples",
-    ]),
+    ],
 )
 
 py_library(
@@ -409,108 +407,6 @@ py_library(
 py_library(
     name = "debug_examples",
     deps = [
-        ":debug_errors_lib",
-        ":debug_fibonacci_lib",
-        ":debug_keras_lib",
-    ] + if_not_v2([
-        ":debug_mnist_lib",
-        ":debug_tflearn_iris_lib",
-    ]),
-)
-
-py_binary(
-    name = "debug_fibonacci",
-    srcs = ["examples/debug_fibonacci.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [":debug_fibonacci_lib"],
-)
-
-py_library(
-    name = "debug_fibonacci_lib",
-    srcs = ["examples/debug_fibonacci.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":debug_py",
-        "//tensorflow:tensorflow_py",
-        "//third_party/py/numpy",
-        "@six_archive//:six",
-    ],
-)
-
-py_binary(
-    name = "debug_errors",
-    srcs = ["examples/debug_errors.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [":debug_errors_lib"],
-)
-
-py_library(
-    name = "debug_errors_lib",
-    srcs = ["examples/debug_errors.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":debug_py",
-        "//tensorflow:tensorflow_py",
-        "//third_party/py/numpy",
-    ],
-)
-
-py_binary(
-    name = "debug_mnist",
-    srcs = ["examples/debug_mnist.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [":debug_mnist_lib"],
-)
-
-py_library(
-    name = "debug_mnist_lib",
-    srcs = ["examples/debug_mnist.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":debug_py",
-        "//tensorflow:tensorflow_py",
-        "//tensorflow/examples/tutorials/mnist:input_data",
-    ],
-)
-
-py_binary(
-    name = "debug_tflearn_iris",
-    srcs = ["examples/debug_tflearn_iris.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [":debug_tflearn_iris_lib"],
-)
-
-py_library(
-    name = "debug_tflearn_iris_lib",
-    srcs = ["examples/debug_tflearn_iris.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":debug_py",
-        "//tensorflow:tensorflow_py",
-        "@six_archive//:six",
-    ],
-)
-
-py_binary(
-    name = "debug_keras",
-    srcs = ["examples/debug_keras.py"],
-    python_version = "PY2",
-    srcs_version = "PY2AND3",
-    deps = [":debug_keras_lib"],
-)
-
-py_library(
-    name = "debug_keras_lib",
-    srcs = ["examples/debug_keras.py"],
-    srcs_version = "PY2AND3",
-    deps = [
-        ":debug_py",
-        "//tensorflow:tensorflow_py",
-        "//third_party/py/numpy",
     ],
 )
 
@@ -589,19 +485,3 @@ py_library(
     srcs_version = "PY2AND3",
 )
 
-sh_test(
-    name = "examples_test",
-    size = "medium",
-    srcs = ["examples/examples_test.sh"],
-    data = [
-        ":debug_errors",
-        ":debug_fibonacci",
-        ":debug_keras",
-        ":debug_mnist",
-        ":debug_tflearn_iris",
-        ":offline_analyzer",
-    ],
-    tags = [
-        "no_windows",
-    ],
-)
