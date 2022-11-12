@@ -2120,6 +2120,17 @@ def categorical_column_with_hash_bucket(key,
                      'hash_bucket_size: {}, key: {}'.format(
                          hash_bucket_size, key))
 
+  if key == 'category_1_id' \
+          or key == 'category_1_id_list' \
+          or key == 'merge_standard_food_id' \
+          or key == 'merge_standard_food_id_list' \
+          or key == 'shop_geohash_6' \
+          or key == 'shop_geohash6_list' \
+          or key == 'brand_id' \
+      or key == 'brand_id_list':
+    if hash_bucket_size >= 10000:
+      hash_bucket_size = hash_bucket_size / 10
+
   fc_utils.assert_key_is_string(key)
   fc_utils.assert_string_or_int(dtype, prefix='column_name: {}'.format(key))
 
