@@ -186,10 +186,12 @@ static std::unique_ptr<xla::ComputationPlacer> CreateComputationPlacer() {
 static bool InitModule() {
   xla::ComputationPlacer::RegisterComputationPlacer(
       stream_executor::host::kHostPlatformId, &CreateComputationPlacer);
+  /*
   xla::ComputationPlacer::RegisterComputationPlacer(
       stream_executor::cuda::kCudaPlatformId, &CreateComputationPlacer);
   xla::ComputationPlacer::RegisterComputationPlacer(
       stream_executor::rocm::kROCmPlatformId, &CreateComputationPlacer);
+      */
   return true;
 }
 static bool module_initialized = InitModule();
