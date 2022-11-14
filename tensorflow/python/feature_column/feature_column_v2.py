@@ -2126,6 +2126,8 @@ def categorical_column_with_hash_bucket(key,
           or key == 'merge_standard_food_id_list' \
           or key == 'shop_geohash_6' \
           or key == 'shop_geohash6_list' \
+          or key == 'visit_city' \
+          or key == 'city_id' \
           or key == 'brand_id' \
       or key == 'brand_id_list':
     if hash_bucket_size >= 10000:
